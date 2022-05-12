@@ -22,16 +22,31 @@ def time_format_for_location(utc_with_tz):
  
  
 city_value = StringVar()
+
+
+def read_json(path):
+    with open(path) as f:
+        d = json.load(f)
+    return d
+
+
+
+
+def get_input():
+    return city_value.get()
+
+
+
  
 def showWeather():
-    #Enter you api key, copies from the OpenWeatherMap dashboard
-    api_key = "eda2b2s6d#sd65f4de7c4b8"  #sample API
+   
+    para = read_json("parameters.json") 
  
     # Get city name from user from the input field (later in the code)
-    city_name=city_value.get()
+    city_name=get_input()
  
     # API url
-    weather_url = 'http://api.openweathermap.org/data/2.5/weather?q=' + city_name + '&appid='+api_key
+    weather_url = 'http://api.openweathermap.org/data/2.5/weather?q=' + city_name + '&appid='+para['api_key']
  
     # Get the response from fetched url
     response = requests.get(weather_url)
