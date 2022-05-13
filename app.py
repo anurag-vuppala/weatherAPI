@@ -6,10 +6,9 @@ from datetime import datetime
 #Initialize Window
  
 root =Tk()
-root.geometry("400x400") #size of the window by default
-root.resizable(0,0) #to make the window size fixed
-#title of our window
-root.title("Weather App - AskPython.com")
+root.geometry("800x800") #size of the window by default
+root.resizable(1000,1000) #to make the window resizable
+root.title("Weather App")#title of our window
  
  
 # ----------------------Functions to fetch and display weather info
@@ -46,7 +45,7 @@ def showWeather():
     city_name=get_input()
  
     # API url
-    weather_url = 'http://api.openweathermap.org/data/2.5/weather?q=' + city_name + '&appid='+para['api_key']
+    weather_url = 'http://api.openweathermap.org/data/2.5/weather?q=' + city_name + '&appid='+ para['api_key'] +'&units=metric'
  
     # Get the response from fetched url
     response = requests.get(weather_url)
@@ -61,15 +60,15 @@ def showWeather():
  
  
     if weather_info['cod'] == 200:
-        kelvin = 273 # value of kelvin
+        # value of kelvin
  
 #-----------Storing the fetched values of weather of a city
  
-        temp = int(weather_info['main']['temp'] - kelvin)                                     #converting default kelvin value to Celcius
-        feels_like_temp = int(weather_info['main']['feels_like'] - kelvin)
+        temp = int(weather_info['main']['temp'] )                                     #converting default kelvin value to Celcius
+        feels_like_temp = int(weather_info['main']['feels_like'])
         pressure = weather_info['main']['pressure']
         humidity = weather_info['main']['humidity']
-        wind_speed = weather_info['wind']['speed'] * 3.6
+        wind_speed = weather_info['wind']['speed'] 
         sunrise = weather_info['sys']['sunrise']
         sunset = weather_info['sys']['sunset']
         timezone = weather_info['timezone']
@@ -81,9 +80,9 @@ def showWeather():
  
 #assigning Values to our weather varaible, to display as output
          
-        weather = f"\nWeather of: {city_name}\nTemperature (Celsius): {temp}°\nFeels like in (Celsius): {feels_like_temp}°\nPressure: {pressure} hPa\nHumidity: {humidity}%\nSunrise at {sunrise_time} and Sunset at {sunset_time}\nCloud: {cloudy}%\nInfo: {description}"
+        weather = f"\nWeather of: {city_name}\nTemperature (Celsius): {temp}°\nFeels like in (Celsius): {feels_like_temp}°\nWind Speed: {wind_speed} m\s 1\nPressure: {pressure} hPa\nHumidity: {humidity}%\nSunrise at {sunrise_time} and Sunset at {sunset_time}\nCloud: {cloudy}%\nInfo: {description}"
     else:
-        weather = f"\n\tWeather for '{city_name}' not found!\n\tKindly Enter valid City Name !!"
+        weather = f"\n\tWeather in '{city_name}' not found!\n\tKindly Enter valid City Name !!"
  
  
  
@@ -96,7 +95,7 @@ def showWeather():
  
 city_head= Label(root, text = 'Enter City Name', font = 'Arial 12 bold').pack(pady=10) #to generate label heading
  
-inp_city = Entry(root, textvariable = city_value,  width = 24, font='Arial 14 bold').pack()
+inp_city = Entry(root, textvariable = city_value,  width = 54, font='Arial 14 bold').pack()
  
  
 Button(root, command = showWeather, text = "Check Weather", font="Arial 10", bg='lightblue', fg='black', activebackground="teal", padx=5, pady=5 ).pack(pady= 20)
@@ -105,7 +104,7 @@ Button(root, command = showWeather, text = "Check Weather", font="Arial 10", bg=
  
 weather_now = Label(root, text = "The Weather is:", font = 'arial 12 bold').pack(pady=10)
  
-tfield = Text(root, width=46, height=10)
+tfield = Text(root, width=100, height=100)
 tfield.pack()
  
 root.mainloop()
